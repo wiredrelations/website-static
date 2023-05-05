@@ -385,7 +385,7 @@ async function handleSiteName(event) {
   let siteNameAllowedOK = false;
   if (pattern.test(this.value)) {
     patternOK = true;
-  } else {
+  } else {
     patternOK = false;
     siteNameIsValid = false;
     msgSiteNameInvalid = errSiteNameFormatEN;
@@ -394,10 +394,11 @@ async function handleSiteName(event) {
 
   if(patternOK) {
     siteNameAllowedOK = isAllowedSiteName(this.value);
-  } else {
-    siteNameIsValid = false;
-    msgSiteNameInvalid = errSiteNameFormatEN;
-    invalidSiteName();
+    if (!siteNameAllowedOK) {
+      siteNameIsValid = false;
+      msgSiteNameInvalid = errSiteNameFormatEN;
+      invalidSiteName();
+    }
   }
 
   if(patternOK && siteNameAllowedOK) {
@@ -422,7 +423,7 @@ async function handlePassword(event) {
   if (pattern.test(this.value)) {
     passwordIsValid = true;
     validPassword();
-  } else {
+  } else {
     passwordIsValid = false;
     invalidPassword();
   }
