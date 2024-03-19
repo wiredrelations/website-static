@@ -21,19 +21,13 @@ let urlParams = {};
 })();
 
 let hsContext;
-let uuid;
-try {
-  hsContext = JSON.parse(urlParams.hs_context);
-}catch (e) {
-  //uuid = self.crypto.randomUUID();
-  console.log(e);
-}
-
 let form = document.getElementById('wf-form-Account-details');
 let submitBtn = document.getElementById('submitBtn');
 let progress = document.getElementById('progress');
 let siteName = document.getElementById('sitename');
 let companyName = document.getElementById('companyname');
+let fullName = document.getElementById('fullname');
+let workEmail = document.getElementById('workemail');
 let password = document.getElementById('psw');
 let languageButtons = document.querySelectorAll("input[name=radio]");
 let terms = document.getElementById('Terms');
@@ -47,13 +41,41 @@ let langIsSelected = false;
 let termsIsValid = false;
 let msgSiteNameInvalid = '';
 
-const webflowLangDA = true;
+const webflowLangDA = false;
 
 const errSiteNameTakenEN = webflowLangDA ? 'Indtast venligst et andet site navn, da det valgte allerede er i brug.' : 'Please enter another site name, as it\'s already taken.';
 const errSiteNameFormatEN = webflowLangDA ? 'Indtast venligst et gyldigt site navn.' : 'Please enter a valid site name.';
 const errPasswordPolicyEN = webflowLangDA ? 'Indtast venligst en gyldig adgangskode.' : 'Please enter a valid password.';
 const errSelectLangaugeEN = webflowLangDA ? 'Vælg venligst et sprog til kontoen.' : 'Please select language for the account.';
 const errTermsEN = webflowLangDA ? 'Acceptér venligst servicevilkår.' : 'Please accept Terms of service.';
+
+try {
+  companyName.value = urlParams.companyname;
+}catch (e) {
+  console.log(e);
+}
+
+try {
+  let name = (urlParams.fullname)
+  if(name) {
+    fullName.value = name;
+  }
+}catch (e) {
+  console.log(e);
+}
+
+try {
+  workEmail.value = urlParams.email;
+}catch (e) {
+  console.log(e);
+}
+
+try {
+  hsContext = JSON.parse(urlParams.hs_context);
+}catch (e) {
+  console.log(e);
+}
+
 
 function validSiteName() {
   siteName.classList.remove("invalid", "error");
@@ -462,14 +484,13 @@ function handleTerms(event) {
 }
 
 async function startSignupProcess() {
-  let name = (urlParams.firstname + ' ' + urlParams.lastname).padEnd(6, '_');
   let lang = document.querySelector("input[name=radio]:checked").value;
   const request = {
     query: "mutation signUp($input: SignUpRequest) {\r\n signUp(input: $input) {\r\n id,\r\n name,\r\n languageCode,\r\n modules {\r\n modulesEnabled\r\n }\r\n }\r\n}",
     variables: {
       input: {
-        email: urlParams.email,
-        name: name,
+        email: workEmail.value,
+        name: fullName.value.padEnd(6, '_'),
         password: password.value,
         subDomain: siteName.value.toLowerCase(),
         languageCode: lang,
@@ -480,7 +501,8 @@ async function startSignupProcess() {
   };
   let id = 0;
   if(true) {
-    let result = await fetch('https://signupwebflow.wiredrelations.com/graphql/graphql', {
+    // FIXME graphql
+    let result = await fetch('https://signupwebflow.wiredrelations.com/graphql2222/graphql', {
       method: 'post',
       headers: {
         Accept: 'application/json',
@@ -537,6 +559,8 @@ async function handleSubmit(event) {
   event.preventDefault();
   event.stopPropagation();
   document.querySelector("input[name=email]").value = urlParams.email;
+  document.querySelector("input[name=company_id]").value = urlParams.cid;
+  document.querySelector("input[name=company]").value = urlParams.companyname;
   document.querySelector("input[name=company_name_in_product]").value = companyName ? companyName.value : '';
   document.querySelector("input[name=company_site_name]").value = siteName ? siteName.value.toLowerCase() : '';
 

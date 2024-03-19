@@ -344,7 +344,8 @@ function isAllowedSiteName(value) {
     'admin',
     'login',
     'signup',
-    'gdpr'
+    'gdpr',
+    'manage'
   ];
   return !(disallowedSiteNames.map(v => v.toLowerCase()).includes(value.toLowerCase()));
 }
