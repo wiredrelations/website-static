@@ -360,7 +360,7 @@ async function validateSiteName(val) {
       name: val.value
     }
   };
-  let result = await fetch('https://signupwebflow.wiredrelations.com/graphql/graphql', {
+  let result = await fetch('https://signupwebflow.wiredrelations.com/graphql2-service/graphql', {
     method: 'post',
     headers: {
       Accept: 'application/json',
@@ -480,7 +480,7 @@ async function startSignupProcess() {
   };
   let id = 0;
   if(true) {
-    let result = await fetch('https://signupwebflow.wiredrelations.com/graphql/graphql', {
+    let result = await fetch('https://signupwebflow.wiredrelations.com/graphql2-service/graphql', {
       method: 'post',
       headers: {
         Accept: 'application/json',

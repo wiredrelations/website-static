@@ -382,7 +382,7 @@ async function validateSiteName(val) {
       name: val.value
     }
   };
-  let result = await fetch('https://signupwebflow.wiredrelations.com/graphql/graphql', {
+  let result = await fetch('https://signupwebflow.wiredrelations.com/graphql2-service/graphql', {
     method: 'post',
     headers: {
       Accept: 'application/json',
@@ -501,8 +501,7 @@ async function startSignupProcess() {
   };
   let id = 0;
   if(true) {
-    // FIXME graphql
-    let result = await fetch('https://signupwebflow.wiredrelations.com/graphql2222/graphql', {
+    let result = await fetch('https://signupwebflow.wiredrelations.com/graphql2-service/graphql', {
       method: 'post',
       headers: {
         Accept: 'application/json',
@@ -571,7 +570,7 @@ async function handleSubmit(event) {
     let signupId = await startSignupProcess();
     console.log(signupId);
 
-    let hsForm = document.getElementById('hsForm_20a84c85-53c9-4a90-bafd-86ce542e7c1c');
+    let hsForm = document.getElementById('hsForm_b946dc63-26c5-4af6-af63-d1ad3b5ec61a');
     hsForm.submit();
 
     capterraTracker();
