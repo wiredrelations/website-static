@@ -20,14 +20,11 @@ let urlParams = {};
   }
 })();
 
-let hsContext;
 let form = document.getElementById('wf-form-Account-details');
 let submitBtn = document.getElementById('submitBtn');
 let progress = document.getElementById('progress');
 let siteName = document.getElementById('sitename');
 let companyName = document.getElementById('companyname');
-let fullName = document.getElementById('fullname');
-let workEmail = document.getElementById('workemail');
 let password = document.getElementById('psw');
 let languageButtons = document.querySelectorAll("input[name=radio]");
 let terms = document.getElementById('Terms');
@@ -56,26 +53,11 @@ try {
 }
 
 try {
-  let name = (urlParams.fullname)
-  if(name) {
-    fullName.value = name;
-  }
+  let fullnameIn = urlParams.fullname;
+  let emailIn = urlParams.email;
 }catch (e) {
   console.log(e);
 }
-
-try {
-  workEmail.value = urlParams.email;
-}catch (e) {
-  console.log(e);
-}
-
-try {
-  hsContext = JSON.parse(urlParams.hs_context);
-}catch (e) {
-  console.log(e);
-}
-
 
 function validSiteName() {
   siteName.classList.remove("invalid", "error");
@@ -489,8 +471,8 @@ async function startSignupProcess() {
     query: "mutation signUp($input: SignUpRequest) {\r\n signUp(input: $input) {\r\n id,\r\n name,\r\n languageCode,\r\n modules {\r\n modulesEnabled\r\n }\r\n }\r\n}",
     variables: {
       input: {
-        email: workEmail.value,
-        name: fullName.value.padEnd(6, '_'),
+        email: urlParams.email,
+        name: urlParams.fullname.padEnd(6, '_'),
         password: password.value,
         subDomain: siteName.value.toLowerCase(),
         languageCode: lang,
