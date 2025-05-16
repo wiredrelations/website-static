@@ -1,4 +1,4 @@
-<script src="https://cdn.jsdelivr.net/gh/wiredrelations/website-static@1.0.0/signup_da.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/gh/wiredrelations/website-static@1.0.4/signup_da.js" type="text/javascript"></script>
 <!--Tooltip Scripts & Settings-->
 <script src="https://unpkg.com/popper.js@1"></script>
 <script src="https://unpkg.com/tippy.js@4"></script>

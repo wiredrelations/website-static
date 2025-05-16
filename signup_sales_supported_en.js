@@ -477,7 +477,8 @@ async function startSignupProcess() {
         subDomain: siteName.value.toLowerCase(),
         languageCode: lang,
         phone: '',
-        companyName: companyName ? companyName.value : ''
+        companyName: companyName ? companyName.value : '',
+        hubspotCompanyId: urlParams.cid ? urlParams.cid : '',
       }
     }
   };
