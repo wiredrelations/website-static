@@ -25,6 +25,7 @@ let submitBtn = document.getElementById('submitBtn');
 let progress = document.getElementById('progress');
 let siteName = document.getElementById('sitename');
 let companyName = document.getElementById('companyname');
+let hubspotCompanyId = '';
 let password = document.getElementById('psw');
 let languageButtons = document.querySelectorAll("input[name=radio]");
 let terms = document.getElementById('Terms');
@@ -49,6 +50,19 @@ const errTermsEN = webflowLangDA ? 'Acceptér venligst servicevilkår.' : 'Pleas
 try {
   companyName.value = urlParams.companyname;
 }catch (e) {
+  console.log(e);
+}
+
+try {
+  let cid = urlParams.cid ? urlParams.cid : '';
+  // Check if '?' exists in the cid string
+  if (cid.includes('?')) {
+    // Extract the substring up to the '?'
+    hubspotCompanyId = cid.split('?')[0];
+  } else {
+    hubspotCompanyId = cid;
+  }
+} catch (e) {
   console.log(e);
 }
 
@@ -478,7 +492,7 @@ async function startSignupProcess() {
         languageCode: lang,
         phone: '',
         companyName: companyName ? companyName.value : '',
-        hubspotCompanyId: urlParams.cid ? urlParams.cid : '',
+        hubspotCompanyId: hubspotCompanyId,
       }
     }
   };
